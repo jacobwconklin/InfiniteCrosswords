@@ -17,7 +17,7 @@ const GuessInput = () => {
 
     //jsx for the form users enter their word into
     return (
-        <div>
+        <div style={{position: 'absolute', bottom: 0, right: 0}}>
             <form onSubmit={onSubmit}>
                 <input 
                     className='GuessInput'

@@ -1,6 +1,8 @@
 import './App.css';
 import GuessInput from './components/guessInput';
-import SingleWord from './components/SingleWord';
+// import SingleWord from './components/SingleWord';
+import AllWords from './components/AllWords';
+import AllBackgroundObjects from './components/AllBackgroundObjects';
 
 function App() {
   return (
@@ -11,7 +13,10 @@ function App() {
         </p>
       </header>
       <GuessInput />
-      <SingleWord word='Dictionary'/>
+      <button> RESET </button>
+      {/* <SingleWord word='Dictionary' orientation='VerticalWord'/> */}
+      <AllBackgroundObjects />
+      <AllWords />
     </div>
   );
 }
