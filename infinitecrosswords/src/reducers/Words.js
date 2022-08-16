@@ -3,7 +3,7 @@
     word:'firstWord',
     orientation:'Vertical',
     x:0, 
-    y: 200,
+    y: 250,
     showLetters:true
   }];
 

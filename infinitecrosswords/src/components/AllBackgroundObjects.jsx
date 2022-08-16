@@ -1,8 +1,28 @@
+import skyAndMountain from '../resources/skyMountainBackground.jpg'
 // Holds all background objects rendering them behind the crossword puzzle
 
 const AllBackgroundObjects = () => {
 
-    const allBackgroundObjects = [<div key='ayy' style={{
+    const allBackgroundObjects = [
+    <div >
+        <img 
+            alt='sky and mountain background' 
+            src={skyAndMountain}
+            className='BackgroundObject'
+            style={{
+                width: 2000,
+                height: 3000, 
+                objectFit: 'none',
+                objectPosition: '0 0',
+                position: 'absolute',
+                top: 250,
+                left: 0,
+            }}
+        />
+    </div>
+    ]
+    /* Temporary example for testing
+    [<div key='ayy' style={{
         width: 30, 
         height: 60, 
         backgroundColor: 'blue',
@@ -19,7 +39,7 @@ const AllBackgroundObjects = () => {
         left: 300,
         zIndex: -1
     }}>HI</div>
-    ]
+    ] */
 
     return (
         <div>

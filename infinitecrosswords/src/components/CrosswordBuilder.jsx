@@ -10,6 +10,7 @@ import { addWord } from "../actions/AddWord";
 import Definition from "./Definition";
 import { useState } from "react";
 
+const randomWords = require('random-words');
 
 const CrosswordBuilder = (props) => {
 
@@ -36,6 +37,13 @@ const CrosswordBuilder = (props) => {
     }
 
     const collectNewWords = () => {
+        // Trying npm random words here:
+        setNewWords(randomWords(50).concat(alphabeticalWords));
+
+        // This technique pulls from the random-word-api.herokuapp.com,
+        // it works but gives very obscure words and many do not have
+        // definitions on my current definition api 
+        /*
         fetch('https://random-word-api.herokuapp.com/word?number=50')
         .then(response => response.json())
         .then(data => {
@@ -43,6 +51,7 @@ const CrosswordBuilder = (props) => {
             return data.filter(word => word.length > 3) 
         })
         .then(data => setNewWords(data.concat(alphabeticalWords)));
+        */
     }
 
     return (
