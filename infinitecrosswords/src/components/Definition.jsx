@@ -1,14 +1,27 @@
+import React from "react";
+import { useState, useEffect } from "react";
+
 // Maybe this could be a pure js file that returns the definition, idk
 const Definition = (props) => {
 
-    const getDefinition = () => {
-        return 'the definition of ' + props.word + ' is obvious.';
-    }
+    const [definition, setDefinition] = useState('the first definition is easy');
 
+    useEffect(() => {
+        fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${props.word}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            console.log(data[0].meanings[0]);
+            console.log(data[0].meanings[0].definitions[0]);
+            console.log(data[0].meanings[0].definitions[0].definition);
+            setDefinition( data[0].meanings[0].definitions[0].definition );
+        });
+        // should run whenever props.word changes
+      }, [props.word]);
 
     return (
         <div>
-            <h3>{getDefinition()}</h3>
+            <h3>{definition}</h3>
         </div>
     )
 }

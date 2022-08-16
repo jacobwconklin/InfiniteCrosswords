@@ -8,12 +8,14 @@ import WordAdder from "./WordAdder";
 import { connect } from "react-redux";
 import { addWord } from "../actions/AddWord";
 import Definition from "./Definition";
+import { useState } from "react";
 
 
 const CrosswordBuilder = (props) => {
 
-    // This could better be stored in state with hooks
-    let currentWord = 'first';
+    // Stored in CrosswordBuilder state
+    const [currentWord, setCurrentWord] = useState('first');
+    const [newWords, setNewWords] = useState(alphabeticalWords);
 
     const submitWord = (userWord) => {
         console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
@@ -22,14 +24,25 @@ const CrosswordBuilder = (props) => {
             // user guess is correct
             props.dispatch(showLetters(userWord));
             // WordAdder actually just supplies a new set up word object
-            const newWordObject = WordAdder(props.prevWord);
+            const newWordObject = WordAdder(props.prevWord, newWords);
             // console.log('in crosswordbuilder newWordObject is:', newWordObject);
             props.dispatch(addWord(newWordObject));
-            currentWord = newWordObject.word;
+            setCurrentWord(newWordObject.word);
+            collectNewWords();
         } else {
             // user guess is over, therefore end the game.
             console.log('game ogre');
         }
+    }
+
+    const collectNewWords = () => {
+        fetch('https://random-word-api.herokuapp.com/word?number=50')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            return data.filter(word => word.length > 3) 
+        })
+        .then(data => setNewWords(data.concat(alphabeticalWords)));
     }
 
     return (
@@ -40,6 +53,35 @@ const CrosswordBuilder = (props) => {
     )
 }
 
+// Temporary list of words for testing:
+const alphabeticalWords = [
+    'apple',
+    'beetle',
+    'carrot',
+    'dragon',
+    'eccentric',
+    'fountain',
+    'giant',
+    'hilarious',
+    'igloo',
+    'jump',
+    'kangaroo',
+    'licked',
+    'mustard',
+    'north',
+    'orientation',
+    'powerful',
+    'questions',
+    'restaurant',
+    'squeeze',
+    'trunk',
+    'uranium',
+    'vibration',
+    'wonderful',
+    'xylophone',
+    'yesterday',
+    'zebra'
+   ];
 
 
 const mapStateToProps = (state, props) => {

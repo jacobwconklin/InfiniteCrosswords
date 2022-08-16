@@ -1,37 +1,7 @@
-// Temporary list of words for testing:
-const newWords = [
-  'apple',
-  'beetle',
-  'carrot',
-  'dragon',
-  'eccentric',
-  'fountain',
-  'giant',
-  'hilarious',
-  'igloo',
-  'jump',
-  'kangaroo',
-  'licked',
-  'mustard',
-  'north',
-  'orientation',
-  'powerful',
-  'questions',
-  'restaurant',
-  'squeeze',
-  'trunk',
-  'uranium',
-  'vibration',
-  'wonderful',
-  'xylophone',
-  'yesterday',
-  'zebra'
- ];
-
 // Now WordAdder has been simplified, it works as a pure js function taking in
 // an object for the previous word and finding and and building a new word object
 // to return
-const WordAdder = (prevWord) => {
+const WordAdder = (prevWord, newWords) => {
 
   if (prevWord == null) {
     const word = 'noPrevWord';
