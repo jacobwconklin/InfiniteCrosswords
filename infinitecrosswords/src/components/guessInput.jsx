@@ -3,7 +3,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-const GuessInput = () => {
+const GuessInput = (props) => {
     const [stateText = 'defaultValue', setText] = useState([]);
     const [formText, setFormText] = useState([]);
 
@@ -12,12 +12,14 @@ const GuessInput = () => {
         const guess = e.target[0].value;
         setText(guess);
         setFormText(''); // Empty out / reset form after submission
-        console.log('user word is: ', guess);
+        // console.log('user word is: ', guess);
+        // submit function from CrosswordBuilder is passed down here:
+        props.submitWord(guess);
     }
 
     //jsx for the form users enter their word into
     return (
-        <div style={{position: 'absolute', bottom: 0, right: 0}}>
+        <div style={{}}>
             <form onSubmit={onSubmit}>
                 <input 
                     className='GuessInput'

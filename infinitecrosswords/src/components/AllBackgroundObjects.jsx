@@ -2,7 +2,7 @@
 
 const AllBackgroundObjects = () => {
 
-    const allBackgroundObjects = [<div style={{
+    const allBackgroundObjects = [<div key='ayy' style={{
         width: 30, 
         height: 60, 
         backgroundColor: 'blue',
@@ -10,9 +10,9 @@ const AllBackgroundObjects = () => {
         top: 300,
         left: 150
     }}>HI</div>,
-    <div style={{
+    <div key='bee' style={{
         width: 30, 
-        height: 1000, 
+        height: 200, 
         backgroundColor: 'blue',
         position: 'absolute',
         top: -100,

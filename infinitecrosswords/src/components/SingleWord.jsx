@@ -7,12 +7,21 @@ const SingleWord = (props) => {
     //const selectClassName = () => {
     //    return props.orientation ? props.orientation + 'Container' : 'HorizontalContainer';
     //}
-    const orientation = props.orientation || 'VerticalWord';
+    const orientation = props.orientation || 'Vertical';
+    const showLetters = props.showLetters || false;
+    // Flag to make first letter always be visible
+    let isFirstLetter = true;
 
-    if (props.position) {
-        console.log('in singleword if for props.position it is:', props.position);
-        
-    }
+    // Want to make the first letter always visible
+    const checkFirstLetter = () => {
+        if (isFirstLetter) {
+            isFirstLetter = false;
+            return true;
+        }
+        return false;
+    };
+
+    console.log('props in single word are:', props);
 
     return (
         <div>
@@ -23,9 +32,14 @@ const SingleWord = (props) => {
             }}>
                 <br />
                 {
+                    /* Decided to make each first letter visible, can change if words get 
+                        atatched by other letters so that each subsequent word goes behind
+                        the previous word instead */
                     props.word ? 
                         props.word.split('').map(letter => ( 
-                            <span key={Math.random().toString()} className="Letter">{letter}</span>
+                            <span key={Math.random().toString()} className="Letter">
+                                {(checkFirstLetter() || showLetters) && letter}
+                            </span>
                         )) : 
                         <p> Error no props.word </p>    
                 }

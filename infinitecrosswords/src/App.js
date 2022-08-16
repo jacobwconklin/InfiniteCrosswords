@@ -1,8 +1,8 @@
 import './App.css';
-import GuessInput from './components/guessInput';
 // import SingleWord from './components/SingleWord';
 import AllWords from './components/AllWords';
 import AllBackgroundObjects from './components/AllBackgroundObjects';
+import CrosswordBuilder from './components/CrosswordBuilder';
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
           Welcome to infinite crossroaaaads!
         </p>
       </header>
-      <GuessInput />
+      <CrosswordBuilder />
       <button> RESET </button>
-      {/* <SingleWord word='Dictionary' orientation='VerticalWord'/> */}
+      {/* <SingleWord word='Dictionary' orientation='Vertical'/> */}
       <AllBackgroundObjects />
       <AllWords />
     </div>
