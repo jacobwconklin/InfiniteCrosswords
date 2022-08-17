@@ -20,15 +20,18 @@ const SingleWord = (props) => {
         }
         return false;
     };
+    // console.log('props in single word are:', props);
 
-    console.log('props in single word are:', props);
+    
+    const x = props.x * 35;
+    const y = orientation === 'Vertical' ? (props.y * 35) + 250 : (props.y * 35) + 271;
 
     return (
         <div>
             <div className={orientation} style={{
                 position: 'absolute', 
-                top: props.position.y + 'px', 
-                left: props.position.x + 'px'
+                top: y + 'px', 
+                left: x + 'px'
             }}>
                 <br />
                 {

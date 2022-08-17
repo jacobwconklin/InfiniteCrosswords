@@ -4,7 +4,7 @@ import skyAndMountain from '../resources/skyMountainBackground.jpg'
 const AllBackgroundObjects = () => {
 
     const allBackgroundObjects = [
-    <div >
+    <div key='plz'>
         <img 
             alt='sky and mountain background' 
             src={skyAndMountain}

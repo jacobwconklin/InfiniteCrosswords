@@ -11,9 +11,6 @@ const Definition = (props) => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log(data[0].meanings[0]);
-            console.log(data[0].meanings[0].definitions[0]);
-            console.log(data[0].meanings[0].definitions[0].definition);
             setDefinition( data[0].meanings[0].definitions[0].definition );
         });
         // should run whenever props.word changes

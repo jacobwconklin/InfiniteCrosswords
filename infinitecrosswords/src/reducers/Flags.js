@@ -11,7 +11,7 @@
     switch(action.type) {
       case 'ADD_WORD_FLAG':
         // set 'addWord' in the state to true
-        console.log('inflagReducer seeing if updating addWord in state will work');
+        // console.log('inflagReducer seeing if updating addWord in state will work');
         return [{ ...state[0], addWord:true}];
       case 'WORD_ADDED_FLAG':
         return [{ ...state[0], addWord:false}];

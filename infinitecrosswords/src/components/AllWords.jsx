@@ -8,7 +8,7 @@ const AllWords = (props) => {
     // they update here, but there they can each have their specific position assigned by wordadder
 
     // get all words from redux store
-    const words = props.words;
+    const words = props.words.reverse();;
 
     // console.log('props in AllWords is now:', words);
 
@@ -24,7 +24,8 @@ const AllWords = (props) => {
                         word={word.word}
                         key={word.word} 
                         orientation={word.orientation}
-                        position={{x: word.x, y: word.y}}
+                        x={word.x}
+                        y={word.y}
                         showLetters={word.showLetters}
                     />
                 ))
@@ -35,8 +36,7 @@ const AllWords = (props) => {
 }
 
 const mapStateToProps = (state, props) => {
-    console.log('state in mapStateToProps in AllWords is:', state);
-    
+    // ('state in mapStateToProps in AllWords is:', state);
     return { words:state.words }; 
   }
   
@@ -45,7 +45,7 @@ const mapStateToProps = (state, props) => {
 // export default AllWords;
 
 
-/* example if three hardcoded singlewords are wanted:
+/* example if three hardcoded singlewords are wanted: but need to change position to just x and y not an encasing object
 
 //temporary example
     // maybe position could just be another prop idk

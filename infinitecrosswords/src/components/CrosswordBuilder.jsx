@@ -19,13 +19,13 @@ const CrosswordBuilder = (props) => {
     const [newWords, setNewWords] = useState(alphabeticalWords);
 
     const submitWord = (userWord) => {
-        console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
-        console.log('in crosswordbuilder userGuess word is: ', userWord);
+        // console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
+        // console.log('in crosswordbuilder userGuess word is: ', userWord);
         if (CheckCorrectness(props.prevWord.word, userWord)) {
             // user guess is correct
             props.dispatch(showLetters(userWord));
             // WordAdder actually just supplies a new set up word object
-            const newWordObject = WordAdder(props.prevWord, newWords);
+            const newWordObject = WordAdder(props.prevWords, newWords);
             // console.log('in crosswordbuilder newWordObject is:', newWordObject);
             props.dispatch(addWord(newWordObject));
             setCurrentWord(newWordObject.word);
@@ -95,9 +95,10 @@ const alphabeticalWords = [
 
 const mapStateToProps = (state, props) => {
     console.log('state in mapStateToProps in AllWords is:', state);
+    const prevWords = state.words;
     const prevWord = state.words.length > 0? state.words[state.words.length - 1] : null;
-    console.log('in mapStateToProps trying to get prevWord', prevWord)
-    return { prevWord , doAddWord:state.flags[0].addWord }; 
+    // console.log('in mapStateToProps trying to get prevWord', prevWords)
+    return { prevWords , prevWord, doAddWord:state.flags[0].addWord }; 
   }
 
 
