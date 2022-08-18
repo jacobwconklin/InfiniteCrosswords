@@ -8,16 +8,32 @@ const AllWords = (props) => {
     // they update here, but there they can each have their specific position assigned by wordadder
 
     // get all words from redux store
-    const words = props.words.reverse();;
+    // may be more efficient to just go through props.words once and concatenate each word to a new
+    // array
+    const prevWords = props.words.filter(word => !word.showLetters);
+    const newWord = props.words.filter(word => word.showLetters);
 
     // console.log('props in AllWords is now:', words);
 
     return (
         <div className='AllWordsContainer'>
-            <p> all words: </p>
             {
                 /* For each word pulled from the Redux Store create a new SingleWord to be rendered */
-                words.map(word => (
+                prevWords.map(word => (
+                    // Check each object in words to see that they are word objects and not flags
+                    word.word && 
+                    <SingleWord 
+                        word={word.word}
+                        key={word.word} 
+                        orientation={word.orientation}
+                        x={word.x}
+                        y={word.y}
+                        showLetters={word.showLetters}
+                    />
+                ))
+            }
+            {
+                newWord.map(word => (
                     // Check each object in words to see that they are word objects and not flags
                     word.word && 
                     <SingleWord 

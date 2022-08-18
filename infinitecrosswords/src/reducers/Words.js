@@ -1,11 +1,14 @@
   // can create a variable for the defualt state to avoid a ton of code in the arguments list of the function
-  const wordReducerDefaultState = [{
+  const wordReducerDefaultState = [];
+  /*
+  {
     word:'firstWord',
     orientation:'Horizontal',
     x:8, 
     y:2,
     showLetters:true
-  }];
+  }
+  */
 
   // Words Reducer
   const wordReducer = (state = wordReducerDefaultState, action) => {

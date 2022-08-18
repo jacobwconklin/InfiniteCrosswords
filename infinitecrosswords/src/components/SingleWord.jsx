@@ -10,7 +10,10 @@ const SingleWord = (props) => {
     const orientation = props.orientation || 'Vertical';
     const showLetters = props.showLetters || false;
     // Flag to make first letter always be visible
+    // Maybe make setting the first and or last letter to be always visible
+    // an optional setting maybe triggered with a button.
     let isFirstLetter = true;
+
 
     // Want to make the first letter always visible
     const checkFirstLetter = () => {

@@ -2,10 +2,13 @@
 // Checks that length matches and could start / end word with correct letter if desired
 import React from 'react';
 import { useState } from 'react';
+import { connect } from "react-redux";
+import { clearWords } from '../actions/ClearWords';
 
 const GuessInput = (props) => {
     const [stateText = 'defaultValue', setText] = useState([]);
     const [formText, setFormText] = useState([]);
+    const [gameIsStarted, setGameIsStarted] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -15,6 +18,18 @@ const GuessInput = (props) => {
         // console.log('user word is: ', guess);
         // submit function from CrosswordBuilder is passed down here:
         props.submitWord(guess);
+    }
+
+    const startOrResetGame = () => {
+        if (!gameIsStarted) {
+            setGameIsStarted(true);
+            props.startGame();
+        } else {
+            // Reset ongoing game
+            console.log('in guessinput checking that props.dispatch exists:', props.dispatch);
+            props.dispatch(clearWords());
+            setGameIsStarted(false);
+        }
     }
 
     //jsx for the form users enter their word into
@@ -32,11 +47,13 @@ const GuessInput = (props) => {
                     I'M SURE
                 </button>
             </form>
-            <h1> here is the text -| {stateText}</h1>
+            {/* Start game button could double as reset button maybe */}
+            <button onClick={startOrResetGame}>{ gameIsStarted ? 'RESET' : 'START' }</button>
+            <h1> Your Guess:  {stateText}</h1>
         </div>
     )
 
 }
 
 
-export default GuessInput;
+export default connect()(GuessInput);

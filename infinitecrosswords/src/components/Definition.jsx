@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 // Maybe this could be a pure js file that returns the definition, idk
 const Definition = (props) => {
 
-    const [definition, setDefinition] = useState('the first definition is easy');
+    const [definition, setDefinition] = useState('Press Start to Begin (Maybe funny definition here)');
 
     useEffect(() => {
+        if (!props.word) return;
         fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${props.word}`)
         .then(response => response.json())
         .then(data => {

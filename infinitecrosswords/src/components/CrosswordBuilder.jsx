@@ -15,7 +15,7 @@ const randomWords = require('random-words');
 const CrosswordBuilder = (props) => {
 
     // Stored in CrosswordBuilder state
-    const [currentWord, setCurrentWord] = useState('first');
+    const [currentWord, setCurrentWord] = useState();
     const [newWords, setNewWords] = useState(alphabeticalWords);
 
     const submitWord = (userWord) => {
@@ -34,6 +34,20 @@ const CrosswordBuilder = (props) => {
             // user guess is over, therefore end the game.
             console.log('game ogre');
         }
+    }
+
+    // Create the first random word to get the crossword going
+    const startGame = () => {
+        let word = 'no';
+        while (word.length <= 3) {
+            word = randomWords();
+        }
+        setCurrentWord(word);
+        const x = 8;
+        const y = 3;
+        const orientation = Math.random() > 0.49 ? 'Vertical' : 'Horizontal';
+        const showLetters = false; 
+        props.dispatch(addWord({word, x, y, orientation, showLetters}));
     }
 
     const collectNewWords = () => {
@@ -56,7 +70,7 @@ const CrosswordBuilder = (props) => {
 
     return (
         <div>
-            <GuessInput submitWord={submitWord}/>
+            <GuessInput submitWord={submitWord} startGame={startGame}/>
             <Definition word={currentWord} />
         </div>
     )
