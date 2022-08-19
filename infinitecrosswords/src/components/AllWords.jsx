@@ -2,6 +2,7 @@
  import React from "react"
  import SingleWord from "./SingleWord"
  import { connect } from "react-redux";
+ // Handle scrolling user down to newest word
 
 const AllWords = (props) => {
     // Maybe pull all words from somewhere like redux store or context, so whenever they are updated

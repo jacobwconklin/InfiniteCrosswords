@@ -125,9 +125,14 @@ const findSlot = (oldWord, newWord, allWords) => {
           const checkIsVertical = checkWord.orientation === 'Vertical';
           // Checks for horizontal adjacencies when placing a horizontal word
           if (!placingVertical && !checkIsVertical && checkWord.y >= newStartY -1 && checkWord.y <= newStartY + 1 
-            && ((newStartX <= checkWord.x + checkWord.word.length && newStartX >= checkWord.x -1) || 
+            && // check if newWord's start or end falls within checkWord
+            (((newStartX <= checkWord.x + checkWord.word.length && newStartX >= checkWord.x -1) || 
             ( newStartX + newWord.length >= checkWord.x -1 && 
-              newStartX + newWord.length <= checkWord.x + checkWord.word.length))
+              newStartX + newWord.length <= checkWord.x + checkWord.word.length)) || 
+              // check if checkWord's start or end fall within newWord
+            ((checkWord.x <= newStartX + newWord.length && checkWord.x >= newStartX -1) || 
+            (checkWord.x + checkWord.word.length <= newStartX + newWord.length && 
+              checkWord.x + checkWord.word.length >= newStartX -1)))
               // With this method would also have to check if the start of checkword and then end of
               // check word fall within newword to truly test all possibilities. 
               ) {
@@ -138,16 +143,19 @@ const findSlot = (oldWord, newWord, allWords) => {
           if (!placingVertical && (checkWord.x === newStartX + newWord.length 
             || checkWord.x === newStartX - 1 || (!checkIsVertical && checkWord.x + 
             checkWord.word.length === newStartX)) //know it's x is bad, see if it's y is bad
-            && ( (newStartY >= checkWord.y && newStartY <= checkWord.y + checkWord.word.length ) 
+            && ( (newStartY >= checkWord.y && newStartY < checkWord.y + checkWord.word.length ) 
             || (!checkIsVertical && checkWord.y === newStartY) )) {
               obstruction = true;
             }
           //Checks for vertical adjacencies when placing a vertical word
-          // DOES NOT PROPERLY CHECK FOR HORIZONTAL ONE TO THE LEFT OR RIGHT OF NEW VERTICAL WORD**************
           if (placingVertical && checkIsVertical && checkWord.x >= newStartX -1 && checkWord.x <= newStartX + 1 
-            && ( (newStartX <= checkWord.x + checkWord.word.length && newStartX >= checkWord.x -1) || 
+            && ( ( (newStartY <= checkWord.y + checkWord.word.length && newStartY >= checkWord.y -1) || 
               ( newStartY + newWord.length >= checkWord.y -1 && 
-                newStartY + newWord.length <= checkWord.y + checkWord.word.length) ) ) {
+                newStartY + newWord.length <= checkWord.y + checkWord.word.length) )  || 
+                // check if checkWord's start or end fall within newWord
+              ((checkWord.y <= newStartY + newWord.length && checkWord.y >= newStartY -1) || 
+              (checkWord.y + checkWord.word.length <= newStartY + newWord.length && 
+                checkWord.y + checkWord.word.length >= newStartY -1))) ) {
               obstruction = true;
           }
           // Checks for words just off the top or bottom of the new word
@@ -155,14 +163,13 @@ const findSlot = (oldWord, newWord, allWords) => {
           if (placingVertical && (checkWord.y === newStartY + newWord.length 
             || checkWord.y === newStartY - 1 || (checkIsVertical && checkWord.y + 
             checkWord.word.length === newStartY)) 
-            && ( (newStartX >= checkWord.x && newStartX <= checkWord.x + checkWord.word.length ) 
+            && ( (newStartX >= checkWord.x && newStartX < checkWord.x + checkWord.word.length ) 
             || (!checkIsVertical && checkWord.x === newStartX ))) {
               obstruction = true;
             }
           // Checks for intersection and correct letter if there is one
-          // SOMEHOW MISSED THE FIRST LETTER OF A HORIZONTAL EXISTING WORD THAT INTERSECTED*****************
           if (placingVertical && !checkIsVertical && newStartX < checkWord.x + checkWord.word.length 
-            && newStartX > checkWord.x && newStartY <= checkWord.y && newStartY + newWord.length > checkWord.y ) {
+            && newStartX >= checkWord.x && newStartY <= checkWord.y && newStartY + newWord.length > checkWord.y ) {
               // use newStartX to determine letter of checkword, and check.y to determine letter of newword
               if(newWord[checkWord.y - newStartY].toLowerCase() !== 
                 checkWord.word[newStartX - checkWord.x].toLowerCase()) {
@@ -170,12 +177,24 @@ const findSlot = (oldWord, newWord, allWords) => {
                 }
             }
           if (!placingVertical && checkIsVertical && newStartY < checkWord.y + checkWord.word.length 
-            && newStartY > checkWord.y && newStartX <= checkWord.x && newStartX + newWord.length > checkWord.x) {
+            && newStartY >= checkWord.y && newStartX <= checkWord.x && newStartX + newWord.length > checkWord.x) {
               // use newStartX to determine letter of checkword, and check.y to determine letter of newword
               if(newWord[checkWord.x - newStartX].toLowerCase() !== 
                 checkWord.word[newStartY - checkWord.y].toLowerCase()) {
                   badIntersection = true;
                 }
+            }
+          // For placing verticals: check for horizontals ending off to the left or starting one to the right
+          if (placingVertical && !checkIsVertical && (newStartX === checkWord.x + checkWord.length || 
+            newStartX + 1 === checkWord.x) && checkWord.y >= newStartY && 
+            checkWord.y < newStartY + newWord.length) {
+              obstruction = true;
+            }
+          // For placing horizontals: check for verticals ending one above or starting one below
+          if (!placingVertical && checkIsVertical && (newStartY === checkWord.y + checkWord.length || 
+            newStartY + 1 === checkWord.y)  && checkWord.x >= newStartX && 
+            checkWord.x < newStartX + newWord.length ) {
+              obstruction = true;
             }
         } // end of loop through allwords for conlicts
         if (!obstruction && !badIntersection) {

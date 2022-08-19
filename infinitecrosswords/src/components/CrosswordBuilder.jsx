@@ -18,22 +18,33 @@ const CrosswordBuilder = (props) => {
     const [currentWord, setCurrentWord] = useState();
     const [newWords, setNewWords] = useState(alphabeticalWords);
 
-    const submitWord = (userWord) => {
+    const submitWord = async (userWord) => {
         // console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
         // console.log('in crosswordbuilder userGuess word is: ', userWord);
         if (CheckCorrectness(props.prevWord.word, userWord)) {
             // user guess is correct
             props.dispatch(showLetters(userWord));
             // WordAdder actually just supplies a new set up word object
-            const newWordObject = WordAdder(props.prevWords, newWords);
+            const newWordObject = await WordAdder(props.prevWords, newWords);
             // console.log('in crosswordbuilder newWordObject is:', newWordObject);
-            props.dispatch(addWord(newWordObject));
-            setCurrentWord(newWordObject.word);
-            collectNewWords();
+            await props.dispatch(addWord(newWordObject));
+            await setCurrentWord(newWordObject.word);
+            await collectNewWords();
+            // scroll to new word:
+            scrollToNewWord();
         } else {
             // user guess is over, therefore end the game.
             console.log('game ogre');
+            alert('wrong you lose');
         }
+    }
+
+    const scrollToNewWord = () => {
+        // This code words great, I just need it to get called after the
+        // App has had ample time to re-render
+        document.getElementById("NewWord").scrollIntoView(
+            {behavior:"smooth", block:'end', inline:'center'}
+        )
     }
 
     // Create the first random word to get the crossword going

@@ -13,9 +13,7 @@ const SingleWord = (props) => {
     // Maybe make setting the first and or last letter to be always visible
     // an optional setting maybe triggered with a button.
     let isFirstLetter = true;
-
-
-    // Want to make the first letter always visible
+    // Want to make the first letter always visible for now
     const checkFirstLetter = () => {
         if (isFirstLetter) {
             isFirstLetter = false;
@@ -24,14 +22,13 @@ const SingleWord = (props) => {
         return false;
     };
     // console.log('props in single word are:', props);
-
     
     const x = props.x * 35;
     const y = orientation === 'Vertical' ? (props.y * 35) + 250 : (props.y * 35) + 271;
 
     return (
         <div>
-            <div className={orientation} style={{
+            <div className={orientation} id={showLetters ? 'ExistingWord' : 'NewWord'} style={{
                 position: 'absolute', 
                 top: y + 'px', 
                 left: x + 'px'
