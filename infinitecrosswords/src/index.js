@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 // import storeMaker from './store/configureStore';
 import { Provider } from 'react-redux';
 import storeMaker from './store/ConfigureStore';
+import AppRouter from './AppRouter';
 
 const store = storeMaker();
   // createStore(wordReducer, [{word: 'redux', x: 200, y: 300, orientation: 'Vertical'}]);
@@ -14,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AppRouter />
     </Provider>
   </React.StrictMode>
 );

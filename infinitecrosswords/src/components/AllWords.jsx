@@ -10,32 +10,28 @@ const AllWords = (props) => {
     // get all words from redux store
     // may be more efficient to just go through props.words once and concatenate each word to a new
     // array
-    const prevWords = props.words.filter(word => !word.showLetters);
-    const newWord = props.words.filter(word => word.showLetters);
-
-    // console.log('props in AllWords is now:', words);
+    const [newWord] = props.words.filter(word => !(word.showLetters));
+    console.log('props.words in AllWords is now:', props.words);
+    console.log('in allwords newWord is:', newWord);
 
     return (
         <div className='AllWordsContainer'>
             {
-                /* For each word pulled from the Redux Store create a new SingleWord to be rendered */
-                prevWords.map(word => (
-                    // Check each object in words to see that they are word objects and not flags
-                    word.word && 
-                    <SingleWord 
-                        word={word.word}
-                        key={word.word} 
-                        orientation={word.orientation}
-                        x={word.x}
-                        y={word.y}
-                        showLetters={word.showLetters}
-                    />
-                ))
+                newWord && 
+                <SingleWord 
+                word={newWord.word}
+                key={newWord.word} 
+                orientation={newWord.orientation}
+                x={newWord.x}
+                y={newWord.y}
+                showLetters={newWord.showLetters}
+                />
             }
             {
-                newWord.map(word => (
+                /* For each word pulled from the Redux Store create a new SingleWord to be rendered */
+                props.words.map(word => (
                     // Check each object in words to see that they are word objects and not flags
-                    word.word && 
+                    word.word && word.showLetters && 
                     <SingleWord 
                         word={word.word}
                         key={word.word} 

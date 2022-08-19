@@ -4,3 +4,61 @@
 // you can make in limited amount of time, maybe the old version of adding them would be good for this for 
 // pure distance reachable. Since I have some ideas here: I should also have lives / hint buttons for the 
 // crossword main game that can like reveal a letter or a whole word or fetch synonyms or something. 
+import { NavLink } from "react-router-dom";
+
+const PageHeader = () => {
+
+    return (
+        <div
+            className="PageHeader" 
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '30px',
+                background: 'silver',
+                border: '3px solid gold',
+                'borderTopStyle': 'none',
+                'borderBottomStyle': 'none'
+            }}
+        >
+            <NavLink to="/" style={{
+                color:'black',
+                textDecoration: 'none',
+                fontSize: 'large',
+                border: 'none',
+                paddingRight: '100px'
+            }}>  CLASSIC </NavLink>
+            <NavLink to="/games" style={{
+                color:'black',
+                textDecoration: 'none',
+                fontSize: 'large',
+                border: 'none',
+                paddingRight: '100px'
+            }}>  BROWSE GAMES </NavLink>
+            <NavLink to="/leaderboard" style={{
+                color:'black',
+                textDecoration: 'none',
+                fontSize: 'large',
+                border: 'none',
+            }}>  LEADERBOARD </NavLink>
+        </div>
+    )
+}
+
+/*
+
+const Header = () => (
+    <div>
+      <h1> Expensify </h1>
+      <NavLink to="/" activeClassName="is-active" exact={true}>Dashboard</NavLink>
+      <NavLink to="/create" activeClassName="is-active">Create Expense</NavLink>
+      <NavLink to="/help" activeClassName="is-active">Help</NavLink>
+      <br></br>
+    </div>
+  );
+
+*/
+
+export default PageHeader;

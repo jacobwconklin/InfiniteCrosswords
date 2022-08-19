@@ -9,11 +9,12 @@ const FixedHeader = () => {
             className="FixedHeader" 
             style={{
                 position: 'fixed',
-                top: 0,
+                top: 30,
                 left: 0,
                 width: '100%',
                 background: 'silver',
-                border: '3px solid gold'
+                border: '3px solid gold',
+                'borderTopStyle': 'none'
             }}
         >
             <CrosswordBuilder />
