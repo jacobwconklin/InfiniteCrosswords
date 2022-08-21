@@ -4,16 +4,17 @@ import React from 'react';
 import { useState } from 'react';
 import { connect } from "react-redux";
 import { clearWords } from '../actions/ClearWords';
+import CrosswordButtons from './CrosswordButtons';
 
 const GuessInput = (props) => {
-    const [stateText = 'defaultValue', setText] = useState([]);
+    // const [stateText = 'defaultValue', setText] = useState([]);
     const [formText, setFormText] = useState([]);
     const [gameIsStarted, setGameIsStarted] = useState(false);
 
     const onSubmit = (e) => {
         e.preventDefault();
         const guess = e.target[0].value;
-        setText(guess);
+        // setText(guess);
         setFormText(''); // Empty out / reset form after submission
         // console.log('user word is: ', guess);
         // submit function from CrosswordBuilder is passed down here:
@@ -26,7 +27,7 @@ const GuessInput = (props) => {
             props.startGame();
         } else {
             // Reset ongoing game
-            console.log('in guessinput checking that props.dispatch exists:', props.dispatch);
+            // console.log('in guessinput checking that props.dispatch exists:', props.dispatch);
             props.dispatch(clearWords());
             setGameIsStarted(false);
         }
@@ -47,9 +48,10 @@ const GuessInput = (props) => {
                     I'M SURE
                 </button>
             </form>
+            <CrosswordButtons />
             {/* Start game button could double as reset button maybe */}
             <button onClick={startOrResetGame}>{ gameIsStarted ? 'RESET' : 'START' }</button>
-            <h1> Your Guess:  {stateText}</h1>
+            {/* to display user's guess: <h1> Your Guess:  {stateText}</h1> */}
         </div>
     )
 

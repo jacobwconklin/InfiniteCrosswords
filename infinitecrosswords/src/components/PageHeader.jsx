@@ -20,7 +20,9 @@ const PageHeader = () => {
                 background: 'silver',
                 border: '3px solid gold',
                 'borderTopStyle': 'none',
-                'borderBottomStyle': 'none'
+                'borderBottomStyle': 'none',
+                display: 'flex',
+                justifyContent: 'center'
             }}
         >
             <NavLink to="/" style={{
@@ -28,21 +30,21 @@ const PageHeader = () => {
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
-                paddingRight: '100px'
+                paddingRight: '30px'
             }}>  CLASSIC </NavLink>
-            <NavLink to="/games" style={{
+            <NavLink to="/speed" style={{
                 color:'black',
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
-                paddingRight: '100px'
-            }}>  BROWSE GAMES </NavLink>
-            <NavLink to="/leaderboard" style={{
+                paddingRight: '30px'
+            }}>  SPEED TYPER </NavLink>
+            <NavLink to="/pokemon" style={{
                 color:'black',
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
-            }}>  LEADERBOARD </NavLink>
+            }}>  POKEMON </NavLink>
         </div>
     )
 }

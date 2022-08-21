@@ -16,7 +16,6 @@ const CrosswordBuilder = (props) => {
 
     // Stored in CrosswordBuilder state
     const [currentWord, setCurrentWord] = useState();
-    const [newWords, setNewWords] = useState(alphabeticalWords);
 
     const submitWord = async (userWord) => {
         // console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
@@ -25,16 +24,15 @@ const CrosswordBuilder = (props) => {
             // user guess is correct
             props.dispatch(showLetters(userWord));
             // WordAdder actually just supplies a new set up word object
-            const newWordObject = await WordAdder(props.prevWords, newWords);
+            const newWordObject = await WordAdder(props.prevWords);
             // console.log('in crosswordbuilder newWordObject is:', newWordObject);
             await props.dispatch(addWord(newWordObject));
             await setCurrentWord(newWordObject.word);
-            await collectNewWords();
             // scroll to new word:
             scrollToNewWord();
         } else {
             // user guess is over, therefore end the game.
-            console.log('game ogre');
+            // console.log('game ogre');
             alert('wrong you lose');
         }
     }
@@ -61,6 +59,8 @@ const CrosswordBuilder = (props) => {
         props.dispatch(addWord({word, x, y, orientation, showLetters}));
     }
 
+    
+        /*
     const collectNewWords = () => {
         // Trying npm random words here:
         setNewWords(randomWords(50).concat(alphabeticalWords));
@@ -68,7 +68,6 @@ const CrosswordBuilder = (props) => {
         // This technique pulls from the random-word-api.herokuapp.com,
         // it works but gives very obscure words and many do not have
         // definitions on my current definition api 
-        /*
         fetch('https://random-word-api.herokuapp.com/word?number=50')
         .then(response => response.json())
         .then(data => {
@@ -76,8 +75,9 @@ const CrosswordBuilder = (props) => {
             return data.filter(word => word.length > 3) 
         })
         .then(data => setNewWords(data.concat(alphabeticalWords)));
-        */
     }
+    
+        */
 
     return (
         <div>
@@ -88,6 +88,7 @@ const CrosswordBuilder = (props) => {
 }
 
 // Temporary list of words for testing:
+/*
 const alphabeticalWords = [
     'apple',
     'beetle',
@@ -116,10 +117,10 @@ const alphabeticalWords = [
     'yesterday',
     'zebra'
    ];
-
+*/
 
 const mapStateToProps = (state, props) => {
-    console.log('state in mapStateToProps in AllWords is:', state);
+    // console.log('state in mapStateToProps in AllWords is:', state);
     const prevWords = state.words;
     const prevWord = state.words.length > 0? state.words[state.words.length - 1] : null;
     // console.log('in mapStateToProps trying to get prevWord', prevWords)

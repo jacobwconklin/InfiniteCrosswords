@@ -15,7 +15,7 @@ const AllBackgroundObjects = () => {
                 objectFit: 'none',
                 objectPosition: '0 0',
                 position: 'absolute',
-                top: 180,
+                top: 150,
                 left: 0,
             }}
         />

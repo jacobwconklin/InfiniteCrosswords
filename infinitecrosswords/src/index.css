@@ -31,5 +31,24 @@ code {
   flex-direction: row;
 }
 
+.FixedHeader {
+  position: 'fixed';
+  top: 30;
+  left: 0;
+  width: '100%';
+  background: 'silver';
+  border: '3px solid gold';
+  border-top-style: 'none';
+}
 
-
+@media screen and (max-width: 600px) {
+  .FixedHeader {
+    position: 'fixed';
+    top: 30;
+    left: 0;
+    border: '3px solid gold';
+    border-top-style: 'none';
+    background: 'red';
+    width: 600px;
+  }
+}

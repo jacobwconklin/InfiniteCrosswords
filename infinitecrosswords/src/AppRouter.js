@@ -9,6 +9,8 @@ const AppRouter = () => (
         <Routes>
             <Route path="/leaderboard" element={<App />} exact/>
             <Route path="/games" element={<App />} exact />
+            <Route path="/speed" element={<App />} exact />
+            <Route path="/pokemon" element={<App />} exact />
             <Route path="/" element={<App />}/>
             <Route path = "*" element={
                 <div>

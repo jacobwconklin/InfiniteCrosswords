@@ -12,8 +12,8 @@ const AllWords = (props) => {
     // may be more efficient to just go through props.words once and concatenate each word to a new
     // array
     const [newWord] = props.words.filter(word => !(word.showLetters));
-    console.log('props.words in AllWords is now:', props.words);
-    console.log('in allwords newWord is:', newWord);
+    // console.log('props.words in AllWords is now:', props.words);
+    // console.log('in allwords newWord is:', newWord);
 
     return (
         <div className='AllWordsContainer'>

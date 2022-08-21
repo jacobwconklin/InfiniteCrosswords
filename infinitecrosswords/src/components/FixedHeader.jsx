@@ -22,6 +22,5 @@ const FixedHeader = () => {
     ) 
 }
 
-// Add start button to fire off first word... 
 
 export default FixedHeader
