@@ -10,7 +10,9 @@
  // A grid with all words. access by x and then y
 */
 
-const gridReducerDefaultState = [{furthestX: 20, furtherstY: 20, score: 0}];
+// Can also be readily utilized by background if it is being extended / cropped according to the furthestX and
+// furthestY
+const gridReducerDefaultState = [{furthestX: 8, furthestY: 8, score: 0}];
 
 // this reducer will now only serve to hold the Largest X and Y values
 // to know how large to make the new grids. Score may also go well
@@ -18,21 +20,33 @@ const gridReducerDefaultState = [{furthestX: 20, furtherstY: 20, score: 0}];
  const gridReducer = (state = gridReducerDefaultState, action) => {
     switch(action.type) {
       case 'ADD_WORD':
+        console.log('in grid Reducer, action is:', action);
+        // Somehow increment score with state of the art scoring logic
+        let newScore = state[0].score + action.word.length + 25;
         if (action.word.orientation === 'Vertical') {
-            // access x and then y in that order
+            // check if it's y is > than furthestY, if it is reassign furthestY.
+            // also check if its y negative, if it is add to furthestY by the negative amount
+            if (action.word.y + action.word.word.length > state[0].furthestY) {
+              return [{...state[0], furthestY:(action.word.y + action.word.word.lenght), score: newScore}];
+            } else if (action.word.y < 0) {
+              return [{...state[0], furthestY:( state[0].furthestY + (action.word.y * -1)), score: newScore}];
+            }
         } else {
-
+            // Similar checking as vertical words except now check for x values
+            if (action.word.x + action.word.word.length > state[0].furthestX) {
+              return [{...state[0], furthestX:(action.word.x + action.word.word.length), score: newScore}];
+            } else if (action.word.x < 0) {
+              return [{...state[0], furthestX:( state[0].furthestX+ (action.word.x * -1)), score: newScore}];
+            }
         }
-        return state[0].concat(action.word) // not done... 
-        // go through each letter in action.word.word starting at index of action.x and action.y
-        // could just set up the grid to be huge to be easy, but I would rather it grow dynamically
-        // not 100% how I wanna 
+        // if no new furthest x or y, just increase the score
+        return [{...state[0], score: newScore}];
       case 'CLEAR_WORDS':
-        return [defaultGrid]
+        return [gridReducerDefaultState]
       default:
         return state;
     }
   };
 
 
-  export default flagReducer;
+  export default gridReducer;

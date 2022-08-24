@@ -13,7 +13,10 @@ const CrosswordButtons = (props) => {
     
     const [isShowingFirstLetter, setShowingFirstLetter] = useState(false); 
     const [lettersRevealed, setLettersRevealed] = useState(0); // can delete this too
-    const [currentWord, setCurrWord] = useState(''); // temporary remove this
+    // const [currentWord, setCurrWord] = useState(''); // temporary remove this
+    const [synonym, setSynonym] = useState(''); // temporary remove this
+    const [altDefintion, setAltDefinition] = useState('');
+    // Maybe have multiple possible states for the hint such as synonyms, other definitions, etc. 
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -25,15 +28,31 @@ const CrosswordButtons = (props) => {
         // Could also pull x and y if I want the modal over the word... 
         const currWord = props.words.filter(word => !word.showLetters)[0].word;
         // console.log('current word in Give hint in CrosswordButtons is:', currWord);
-        /* Fetch more information such as synonyms, other definitions, parts of speech etc. 
+        // Fetch more information such as synonyms, other definitions, parts of speech etc. 
+        let synonym = '';
+        let altDefintion = '';
         fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${currWord}`)
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
-            setDefinition( data[0].meanings[0].definitions[0].definition );
+            // console.log(data[0].meanings);
+            for ( let i = 0; i < data[0].meanings.length; i++) {
+                // already have meanings[0].definitions[0] as base definition so don't use i == 0
+                // and for now I am just grabbing one alternative definition then stopping
+                if (i !== 0 && !altDefintion) {
+                    altDefintion = data[0].meanings[i].definitions[0].definition;
+                }
+                if (!synonym && data[0].meanings[i].synonyms.length > 0) {
+                    synonym = data[0].meanings[i].synonyms[0]; // This will only get the first synonym!
+                }
+            }
+            // go through data[0].meanings array, look for any synonyms or an alternative definitions
+            // setDefinition( data[0].meanings[0].definitions[0].definition );
+        })
+        .then(() => { 
+            setSynonym(synonym);
+            setAltDefinition(altDefintion);
         });
-        */
-        setCurrWord(currWord);
+        // setCurrWord(currWord); no longer need to track curren tword in scope 
         handleOpen();
     }
 
@@ -55,13 +74,21 @@ const CrosswordButtons = (props) => {
             </button>
             <button onClick={giveHint} disabled={props.words.length === 0}> Give Me A Hint </button>
             <Modal 
-                style={{backgroundColor: 'gold', width: 400, height: 100, marginTop: 50, marginLeft: 50, opacity:'100%'}}
+                style={{backgroundColor: 'gold', width: 400, height: 200, marginTop: 50, marginLeft: 50, opacity:'100%'}}
                 open={open}
                 onClose={handleClose}
             > 
             <div>
-                <p> Hint Modal! wip </p>
-                <p> word is: {currentWord}</p>
+                <h1> Hint </h1>
+                { synonym && 
+                    <p>Synonym: {synonym} </p>
+                }
+                { altDefintion && 
+                    <p>Alternative Definition: {altDefintion} </p>
+                }
+                { !synonym && !altDefintion && 
+                    <p> Unfortunately there is no Hint Available </p>
+                }
             </div>
             </Modal>
             <button onClick={clickedRevealLetter} disabled={props.words.length === 0}> 

@@ -7,6 +7,7 @@ const Definition = (props) => {
     const [definition, setDefinition] = useState('Press Start to Begin');
 
     useEffect(() => {
+        console.log('curr word in Definition.jsx is', props.word);
         if (!props.word) return;
         // if we are doing pokemons, get their definition from 
         // https://pokeapi.co/api/v2/pokemon/${pokemonName}
