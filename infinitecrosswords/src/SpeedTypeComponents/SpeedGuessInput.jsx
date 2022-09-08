@@ -18,6 +18,7 @@ const SpeedGuessInput = (props) => {
             // TODO need to turn off the timer!
             props.dispatch(clearWords());
             setGameIsStarted(false);
+            props.resetGame();
         }
     }
 

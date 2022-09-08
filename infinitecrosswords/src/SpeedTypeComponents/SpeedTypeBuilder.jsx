@@ -67,12 +67,17 @@ const SpeedTypeBuilder = (props) => {
         setStart(true);
     }
 
+    const resetGame = () => {
+        setStart(false);
+    }
+
     return (
         <div>
             <SpeedGuessInput 
                 correctWord={props.prevWord ? props.prevWord.word : null} 
                 submitWord={submitWord} 
                 startGame={startGame}
+                resetGame={resetGame}
             />
             <WordDisplay word={currentWord} />
             {

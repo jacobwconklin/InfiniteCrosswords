@@ -15,12 +15,13 @@ const AllBackgroundObjects = (props) => {
     } else if (props.theme === 1) {
         // space tessallation is 580 x 386
         imgHeight = 386;
-        amountOfColumns = Math.floor((props.furthestY * 35) / 580) + 2;
+        amountOfColumns = Math.floor((props.furthestY * 35) / 384) + 2;
     } else if (props.theme === 2) {
         // bells tessallation is 700 x 700
         imgHeight = 700
-        amountOfColumns = Math.floor((props.furthestY * 35) / 700) + 2;
+        amountOfColumns = Math.floor((props.furthestY * 35) / 698) + 2;
     }
+
     console.log(props.furthestY);
     console.log('amount of columns is:',amountOfColumns);
     // create an array of the length needed so it can be mapped

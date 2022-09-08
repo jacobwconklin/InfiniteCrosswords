@@ -60,29 +60,6 @@ const getValidRandomWord = (allWords) => {
   return randomWord;
 }
 
-// Getting random pokemons by id: number from 1 up to 905
-/*
-const getRandomPokemonName = (allWords) => {
-  let isDuplicate = false;
-  let randomWord = 'no';
-  // Basically a manual do while loop
-  while (randomWord.length <= 3 || isDuplicate ) {
-    isDuplicate = false;
-    const randomNumber = Math.floor(Math.random() * 904) + 1;
-    randomWord = fetch(`https://pokeapi.co/api/v2/pokemon/${randomNumber}`); // Needs some more magic to grab
-    // the name specifically.. 
-    // loop through all words to weed out duplicates
-    for (let existingWord = 0; existingWord < allWords.length; existingWord++) {
-      if (allWords[existingWord].word.toLowerCase() === randomWord.toLowerCase()) {
-        isDuplicate = true;
-      }
-    }
-  }
-  return randomWord;
-}
-*/
-
-
 const getGrid = (allWords, furthestX, furthestY) => {
   // Can crank these up or eventually pull them dynamically from the largest
   // x and y in all the words

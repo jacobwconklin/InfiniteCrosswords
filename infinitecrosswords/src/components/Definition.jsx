@@ -9,10 +9,6 @@ const Definition = (props) => {
     useEffect(() => {
         console.log('curr word in Definition.jsx is', props.word);
         if (!props.word) return;
-        // if we are doing pokemons, get their definition from 
-        // https://pokeapi.co/api/v2/pokemon/${pokemonName}
-        // And / or get a picture from 
-        // https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIDNumber}.png
 
         fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${props.word}`)
         .then(response => response.json())

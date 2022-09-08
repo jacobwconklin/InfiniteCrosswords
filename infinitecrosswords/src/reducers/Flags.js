@@ -11,7 +11,7 @@
 
  // showFirstLetter is ONLY USED here, revealLetters will tell SingleWord what to display
   const flagReducerDefaultState = [{
-    showFirstLetter:false, revealLetters:0, hintsAvailable:3, livesLeft:3, gameOver:false, theme:0
+    showFirstLetter:false, revealLetters:0, hintsAvailable:3, livesLeft:3, gameOver:false, theme:2
   }];   
   const numOfThemes = 3;
   // Only as many themes as I have set up will be supported. Themes are:
