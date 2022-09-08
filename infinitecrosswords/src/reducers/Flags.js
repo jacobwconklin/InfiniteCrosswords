@@ -11,8 +11,13 @@
 
  // showFirstLetter is ONLY USED here, revealLetters will tell SingleWord what to display
   const flagReducerDefaultState = [{
-    showFirstLetter:false, revealLetters:0, hintsAvailable:3, livesLeft:3, gameOver:false
+    showFirstLetter:false, revealLetters:0, hintsAvailable:3, livesLeft:3, gameOver:false, theme:0
   }];   
+  const numOfThemes = 3;
+  // Only as many themes as I have set up will be supported. Themes are:
+  // 0 lizard tessellation
+  // 1 space black and white
+  // 2 repeating bell shapes
 
   // Flags and global values for the Crossword game
   // may also hold lives and number of available hints and game over flag
@@ -39,7 +44,8 @@
         case 'REVEAL_LETTER':
           // Add one more to reveal Letters:
           return [{ ...state[0], revealLetters: ++state[0].revealLetters}];
-        case '':
+        case 'CHANGE_THEME':
+          return [{ ...state[0], theme:((++state[0].theme) % numOfThemes)}]
         default:
           return state;
       }

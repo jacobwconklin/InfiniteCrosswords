@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { connect } from "react-redux";
 import { clearWords } from '../actions/ClearWords';
 import CrosswordButtons from './CrosswordButtons';
+import { changeTheme } from '../actions/ChangeTheme';
 
 const GuessInput = (props) => {
     // const [stateText = 'defaultValue', setText] = useState([]);
@@ -13,7 +14,7 @@ const GuessInput = (props) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const guess = e.target[0].value;
+        const guess = e.target[0].value.trim();
         // setText(guess);
         setFormText(''); // Empty out / reset form after submission
         // console.log('user word is: ', guess);
@@ -36,14 +37,22 @@ const GuessInput = (props) => {
     //jsx for the form users enter their word into
     return (
         <div style={{}}>
-            <form onSubmit={onSubmit}>
+            <br></br>
+            <button onClick={() => props.dispatch(changeTheme())}>
+                THEME
+            </button>
+            <form onSubmit={onSubmit} style={{
+                display:'inline',
+                paddingLeft:'5px'
+                }}>
                 <input 
                     className='GuessInput'
                     placeholder="Type your guess here" 
                     type='text' 
                     value={formText}
                     onChange={e => setFormText(e.target.value)}
-                />
+                /> {/* TODO on change also build out little fake single word overtop 
+                of current word with like green letters to show user where they are typing */}
                 <button>
                     I'M SURE
                 </button>
@@ -52,6 +61,10 @@ const GuessInput = (props) => {
             {/* Start game button could double as reset button maybe */}
             <button onClick={startOrResetGame}>{ gameIsStarted ? 'RESET' : 'START' }</button>
             {/* to display user's guess: <h1> Your Guess:  {stateText}</h1> */}
+            {
+                /* Add suport so show the word the user is typing on the crossword puzzle as they type 
+                <WordBeingTyped text={formText}/> */
+            }
         </div>
     )
 

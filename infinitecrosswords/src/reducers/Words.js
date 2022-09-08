@@ -33,7 +33,7 @@
       case 'CLEAR_WORDS':
         return [];
       case 'SHOW_LETTERS':
-        // console.log('in word reducer in showletters action is:', action);
+        console.log('in word reducer in showletters action is:', action);
         return state.map(wordObject => {
           if (wordObject.word.toLowerCase() === action.word.toLowerCase()) {
             return { ...wordObject, showLetters:true }

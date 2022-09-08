@@ -5,45 +5,63 @@
 // pure distance reachable. Since I have some ideas here: I should also have lives / hint buttons for the 
 // crossword main game that can like reveal a letter or a whole word or fetch synonyms or something. 
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { clearWords } from '../actions/ClearWords';
 
-const PageHeader = () => {
+// Along with links routing user, they may need to reset the redux store if one store is used across apps
+const PageHeader = (props) => {
+
+    const resetReduxStores = () => {
+        // send off actions like clearWords through connection to redux
+        props.dispatch(clearWords());
+    }
 
     return (
+        // Might be good if this is like a drop down accordian, so you don't see it constantly and accidentally
+        // click it. 
         <div
             className="PageHeader" 
             style={{
+                textAlign: 'center',
                 position: 'fixed',
                 top: 0,
                 left: 0,
-                width: '100%',
+                width: '100vw',
                 height: '30px',
                 background: 'silver',
                 border: '3px solid gold',
-                'borderTopStyle': 'none',
+                'borderLeftStyle': 'none',
                 'borderBottomStyle': 'none',
                 display: 'flex',
                 justifyContent: 'center'
             }}
         >
-            <NavLink to="/" style={{
+            <NavLink to="/" onClick={resetReduxStores} style={{
+                width:'140px',
                 color:'black',
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
-                paddingRight: '30px'
+                paddingRight: '15px',
+                paddingLeft: '15px'
             }}>  CLASSIC </NavLink>
-            <NavLink to="/speed" style={{
+            <NavLink to="/speed" onClick={resetReduxStores} style={{
+                width:'140px',
                 color:'black',
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
-                paddingRight: '30px'
+                paddingRight: '15px',
+                paddingLeft: '15px'
             }}>  SPEED TYPER </NavLink>
-            <NavLink to="/pokemon" style={{
+            <NavLink to="/pokemon" onClick={resetReduxStores} style={{
+                width:'140px',
                 color:'black',
                 textDecoration: 'none',
                 fontSize: 'large',
                 border: 'none',
+                paddingRight: '15px',
+                paddingLeft: '15px'
             }}>  POKEMON </NavLink>
         </div>
     )
@@ -63,4 +81,4 @@ const Header = () => (
 
 */
 
-export default PageHeader;
+export default connect()(PageHeader);

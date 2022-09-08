@@ -1,28 +1,27 @@
-// To render and contain the entire header, which will be fixed to the 
-// screen to follow the user if they scroll
-import CrosswordBuilder from "./CrosswordBuilder"
+import PokemonBuilder from "./PokemonBuilder";
 
-const FixedHeader = () => {
+const PokemonHeader = () => {
 
     return (
-        <div 
-            className="FixedHeader" 
+        <div>
+            <div 
+            className="PokemonHeader" 
             style={{
                 position: 'fixed',
                 top: 30,
                 left: 0,
                 width: '100vw',
-                background: 'silver',
+                background: 'blue',
                 border: '3px solid gold',
                 'borderTopStyle': 'none',
                 'borderLeftStyle': 'none',
                 'borderRightStyle': 'none'
             }}
         >
-            <CrosswordBuilder />
+            <PokemonBuilder />
         </div>
-    ) 
+        </div>
+    )
 }
 
-
-export default FixedHeader
+export default PokemonHeader;

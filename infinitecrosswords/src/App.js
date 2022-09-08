@@ -1,4 +1,8 @@
+/*
 import './App.css';
+
+// Original home of the entire app, replaced by files in ./apps folder
+
 // import SingleWord from './components/SingleWord';
 import AllWords from './components/AllWords';
 import AllBackgroundObjects from './components/AllBackgroundObjects';
@@ -21,3 +25,4 @@ function App() {
 }
 
 export default App;
+*/

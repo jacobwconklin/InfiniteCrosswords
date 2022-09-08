@@ -22,12 +22,12 @@ const gridReducerDefaultState = [{furthestX: 8, furthestY: 8, score: 0}];
       case 'ADD_WORD':
         console.log('in grid Reducer, action is:', action);
         // Somehow increment score with state of the art scoring logic
-        let newScore = state[0].score + action.word.length + 25;
+        let newScore = state[0].score + action.word.word.length + 25;
         if (action.word.orientation === 'Vertical') {
             // check if it's y is > than furthestY, if it is reassign furthestY.
             // also check if its y negative, if it is add to furthestY by the negative amount
             if (action.word.y + action.word.word.length > state[0].furthestY) {
-              return [{...state[0], furthestY:(action.word.y + action.word.word.lenght), score: newScore}];
+              return [{...state[0], furthestY:(action.word.y + action.word.word.length), score: newScore}];
             } else if (action.word.y < 0) {
               return [{...state[0], furthestY:( state[0].furthestY + (action.word.y * -1)), score: newScore}];
             }
@@ -42,7 +42,7 @@ const gridReducerDefaultState = [{furthestX: 8, furthestY: 8, score: 0}];
         // if no new furthest x or y, just increase the score
         return [{...state[0], score: newScore}];
       case 'CLEAR_WORDS':
-        return [gridReducerDefaultState]
+        return [gridReducerDefaultState[0]]
       default:
         return state;
     }

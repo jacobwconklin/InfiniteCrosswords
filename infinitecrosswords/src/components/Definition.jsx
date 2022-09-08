@@ -17,8 +17,14 @@ const Definition = (props) => {
         fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${props.word}`)
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
-            setDefinition( data[0].meanings[0].definitions[0].definition );
+            if (data[0].hasOwnProperty('meanings')) {
+                setDefinition( data[0].meanings[0].definitions[0].definition )
+                // TODO check if definition has the word in it, if it does try switching the definition.
+                // IE. if definition.includes(props.word) { see if other definition is available, 
+                // and if so setDefintion again }
+            } else {
+                setDefinition( 'No definition found, word is: ' + props.word);
+            }
         });
         // should run whenever props.word changes
       }, [props.word]);

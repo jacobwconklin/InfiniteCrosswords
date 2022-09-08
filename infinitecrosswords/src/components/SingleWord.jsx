@@ -5,6 +5,11 @@ import { connect } from "react-redux";
 
 const SingleWord = (props) => {
 
+    // Check theme
+    const theme = props.flags[0].theme;
+    const colors = ['black', 'green', 'white'];
+    const bgColors = ['gold', 'maroon', 'black'];
+
     //const selectClassName = () => {
     //    return props.orientation ? props.orientation + 'Container' : 'HorizontalContainer';
     //}
@@ -29,12 +34,22 @@ const SingleWord = (props) => {
             }}>
                 <br />
                 {
-                    /* Decided to make each first letter visible, can change if words get 
-                        atatched by other letters so that each subsequent word goes behind
-                        the previous word instead */
+                    /* Amount of letters to show based on numLettersToReveal and showLetters */
                     props.word ? 
                         props.word.split('').map(letter => ( 
-                            <span key={Math.random().toString()} className="Letter">
+                            <span 
+                                key={Math.random().toString()} 
+                                className="Letter"
+                                style={{
+                                    fontSize:'large',
+                                    fontWeight:'bold',
+                                    color:colors[theme],
+                                    backgroundColor:bgColors[theme],
+                                    width:'31px',
+                                    height:'31px',
+                                    margin:'2px'
+                                }}
+                            >
                                 {(numLettersToReveal-- > 0 || showLetters) && letter}
                             </span>
                         )) : 

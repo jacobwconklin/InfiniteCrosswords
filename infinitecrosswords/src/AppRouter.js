@@ -1,17 +1,21 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import App from './App';
+import InfiniteCrosswordApp from './apps/InfiniteCrossword';
+import SpeedTypeApp from './apps/SpeedType';
+import PokemonApp from './apps/PokemonCrossword';
 import PageHeader from './components/PageHeader';
 
+// IF I am dividing games by url, and separating them into entirely different applications instead of a
+// button like toggle, then it will need to take place here.
 const AppRouter = () => (
     <BrowserRouter>
       <div>
         <Routes>
-            <Route path="/leaderboard" element={<App />} exact/>
-            <Route path="/games" element={<App />} exact />
-            <Route path="/speed" element={<App />} exact />
-            <Route path="/pokemon" element={<App />} exact />
-            <Route path="/" element={<App />}/>
+            <Route path="/leaderboard" element={<InfiniteCrosswordApp />} exact/>
+            <Route path="/games" element={<InfiniteCrosswordApp />} exact />
+            <Route path="/speed" element={<SpeedTypeApp />} exact />
+            <Route path="/pokemon" element={<PokemonApp />} exact />
+            <Route path="/" element={<InfiniteCrosswordApp />}/>
             <Route path = "*" element={
                 <div>
                     <br></br>
