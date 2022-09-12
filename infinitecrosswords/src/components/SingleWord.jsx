@@ -7,7 +7,7 @@ const SingleWord = (props) => {
 
     // Check theme
     const theme = props.flags[0].theme;
-    const colors = ['black', 'green', 'white'];
+    const colors = ['black', 'gold', 'white'];
     const bgColors = ['gold', 'maroon', 'black'];
 
     //const selectClassName = () => {

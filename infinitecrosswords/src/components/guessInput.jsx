@@ -11,6 +11,9 @@ const GuessInput = (props) => {
     // const [stateText = 'defaultValue', setText] = useState([]);
     const [formText, setFormText] = useState([]);
     const [gameIsStarted, setGameIsStarted] = useState(false);
+    const [showHint, setShowHint] = useState(false);
+    const [synonym, setSynonym] = useState(''); 
+    const [altDefintion, setAltDefinition] = useState('');
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -19,7 +22,12 @@ const GuessInput = (props) => {
         setFormText(''); // Empty out / reset form after submission
         // console.log('user word is: ', guess);
         // submit function from CrosswordBuilder is passed down here:
-        props.submitWord(guess);
+        if (props.submitWord(guess)) {
+            setShowHint(false);
+            setSynonym('');
+            setAltDefinition('');
+        }
+           
     }
 
     const startOrResetGame = () => {
@@ -32,6 +40,12 @@ const GuessInput = (props) => {
             props.dispatch(clearWords());
             setGameIsStarted(false);
         }
+    }
+
+    const giveHint = (synonym, altDefinition) => {
+        setSynonym(synonym);
+        setAltDefinition(altDefinition);
+        setShowHint(true);
     }
 
     //jsx for the form users enter their word into
@@ -57,13 +71,27 @@ const GuessInput = (props) => {
                     I'M SURE
                 </button>
             </form>
-            <CrosswordButtons />
+            <CrosswordButtons giveHint={giveHint}/>
             {/* Start game button could double as reset button maybe */}
             <button onClick={startOrResetGame}>{ gameIsStarted ? 'RESET' : 'START' }</button>
             {/* to display user's guess: <h1> Your Guess:  {stateText}</h1> */}
             {
                 /* Add suport so show the word the user is typing on the crossword puzzle as they type 
                 <WordBeingTyped text={formText}/> */
+            }
+            {
+                showHint && 
+                <div>
+                    { synonym && 
+                        <p>Synonym: {synonym} </p>
+                    }
+                    { altDefintion && 
+                        <p>Alternative Definition: {altDefintion} </p>
+                    }
+                    { !synonym && !altDefintion && 
+                        <p> Unfortunately there is no Hint Available </p>
+                    }
+                </div>
             }
         </div>
     )

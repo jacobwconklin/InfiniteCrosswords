@@ -9,14 +9,21 @@ import { connect } from "react-redux";
 import { addWord } from "../actions/AddWord";
 import Definition from "./Definition";
 import { useState } from "react";
+import { Modal } from "@mui/material";
 
 const randomWords = require('random-words');
 
 const CrosswordBuilder = (props) => {
 
+    // For modal
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     // Stored in CrosswordBuilder state
     const [currentWord, setCurrentWord] = useState();
 
+    // Return true if word was guessed correctly
     const submitWord = async (userWord) => {
         // console.log('in crosswordbuilder prev/ current word is: ', props.prevWord.word);
         // console.log('in crosswordbuilder userGuess word is: ', userWord);
@@ -35,10 +42,11 @@ const CrosswordBuilder = (props) => {
             await setCurrentWord(newWordObject.word);
             // scroll to new word:
             scrollToNewWord();
+            return true;
         } else {
-            // user guess is over, therefore end the game.
-            // console.log('game ogre');
-            alert('wrong you lose');
+            // incorrect guess
+            handleOpen();
+            return false;
         }
     }
 
@@ -68,6 +76,23 @@ const CrosswordBuilder = (props) => {
         <div>
             <GuessInput submitWord={submitWord} startGame={startGame}/>
             <Definition word={currentWord} />
+            <Modal 
+                style={{
+                    backgroundColor: 'gold', 
+                    textAlign:'center', 
+                    width: '100vw', 
+                    height: '150px', 
+                    opacity:'100%'
+                }}
+                open={open}
+                onClose={handleClose}
+            >
+                <div className="WrapperForIncorrectModal" style={{
+                }}>
+                    <h1> INCORRECT </h1>
+                    <button onClick={handleClose} style={{border:'none'}}>CONTINUE</button>
+                </div>
+            </Modal> 
         </div>
     )
 }

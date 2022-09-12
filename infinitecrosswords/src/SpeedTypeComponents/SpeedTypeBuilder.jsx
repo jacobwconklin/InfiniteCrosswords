@@ -24,7 +24,7 @@ const SpeedTypeBuilder = (props) => {
     // function prop to it
     const timeEnded = () => {
         // Disable everything, display score etc. 
-        alert('game Ended gg your score is:', props.grid.score);
+        alert('Congratulations Your Score Is: ' + props.grid[0].score);
         setStart(false);
     }
 
@@ -72,14 +72,20 @@ const SpeedTypeBuilder = (props) => {
     }
 
     return (
-        <div>
-            <SpeedGuessInput 
-                correctWord={props.prevWord ? props.prevWord.word : null} 
-                submitWord={submitWord} 
-                startGame={startGame}
-                resetGame={resetGame}
-            />
-            <WordDisplay word={currentWord} />
+        <div className="flexBoxSpeedHeader" style={{
+            display:'flex',
+            justifyContent:'center',
+            alignContent:'center'
+        }}>
+            <div>
+                <SpeedGuessInput 
+                    correctWord={props.prevWord ? props.prevWord.word : null} 
+                    submitWord={submitWord} 
+                    startGame={startGame}
+                    resetGame={resetGame}
+                />
+                <WordDisplay word={currentWord} />
+            </div>
             {
                 start && <SpeedTimer start={start} timeEnded={timeEnded}/>
             }

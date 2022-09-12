@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 
@@ -20,14 +19,13 @@ const SpeedTimer = (props) => {
     const {
         seconds,
         minutes,
-        restart
       } = useTimer({ expiryTimestamp, onExpire: () => {
         console.warn('onExpire called');
         props.timeEnded();
       }});
     
       return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center', paddingLeft:'60px'}}>
         { props.start && 
         <div>
           <div style={{fontSize: '100px'}}>

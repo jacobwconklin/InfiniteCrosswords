@@ -11,7 +11,7 @@ const PokemonHeader = () => {
                 top: 30,
                 left: 0,
                 width: '100vw',
-                background: 'blue',
+                background: 'black',
                 border: '3px solid gold',
                 'borderTopStyle': 'none',
                 'borderLeftStyle': 'none',

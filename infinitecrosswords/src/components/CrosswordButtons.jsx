@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Modal } from "@mui/material";
 import { showFirstLetter } from "../actions/ShowFirstLetter";
 import { revealLetter } from "../actions/RevealLetter";
 // Additional buttons for the crossword game, such as potentially:
@@ -12,15 +11,8 @@ const CrosswordButtons = (props) => {
     // console.log('in CrosswordButtons props.flags is:',props.flags );
     
     const [isShowingFirstLetter, setShowingFirstLetter] = useState(false); 
-    const [lettersRevealed, setLettersRevealed] = useState(0); // can delete this too
-    // const [currentWord, setCurrWord] = useState(''); // temporary remove this
-    const [synonym, setSynonym] = useState(''); // temporary remove this
-    const [altDefintion, setAltDefinition] = useState('');
+    const [lettersRevealed, setLettersRevealed] = useState(0); 
     // Maybe have multiple possible states for the hint such as synonyms, other definitions, etc. 
-
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
     const giveHint = () => {
         // This can be entirely handled here to not overcomplicate,
@@ -49,11 +41,8 @@ const CrosswordButtons = (props) => {
             // setDefinition( data[0].meanings[0].definitions[0].definition );
         })
         .then(() => { 
-            setSynonym(synonym);
-            setAltDefinition(altDefintion);
+            props.giveHint(synonym, altDefintion)
         });
-        // setCurrWord(currWord); no longer need to track curren tword in scope 
-        handleOpen();
     }
 
     const clickedShowFirstLetter = () => {
@@ -73,24 +62,6 @@ const CrosswordButtons = (props) => {
                 {isShowingFirstLetter ? 'Hide First Letters' : 'Show First Letters'} 
             </button>
             <button onClick={giveHint} disabled={props.words.length === 0}> Give Me A Hint </button>
-            <Modal 
-                style={{backgroundColor: 'gold', width: 400, height: 200, marginTop: 50, marginLeft: 50, opacity:'100%'}}
-                open={open}
-                onClose={handleClose}
-            > 
-            <div>
-                <h1> Hint </h1>
-                { synonym && 
-                    <p>Synonym: {synonym} </p>
-                }
-                { altDefintion && 
-                    <p>Alternative Definition: {altDefintion} </p>
-                }
-                { !synonym && !altDefintion && 
-                    <p> Unfortunately there is no Hint Available </p>
-                }
-            </div>
-            </Modal>
             <button onClick={clickedRevealLetter} disabled={props.words.length === 0}> 
                 Reveal A Letter {lettersRevealed ? lettersRevealed + ' Revealed' : ''} 
             </button>

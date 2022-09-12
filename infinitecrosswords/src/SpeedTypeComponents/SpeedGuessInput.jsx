@@ -44,7 +44,7 @@ const SpeedGuessInput = (props) => {
             <form onSubmit={e => pressedEnter(e)} disabled={!props.prevWord}>
                 <input 
                     className='GuessInput'
-                    placeholder="Type your guess here" 
+                    placeholder="Type Here" 
                     type='text' 
                     value={formText}
                     onChange={e => displayAndCheckChange(e) }
@@ -58,7 +58,15 @@ const SpeedGuessInput = (props) => {
             {/* Start game button could double as reset button maybe */}
             <button onClick={startOrResetGame}>{ gameIsStarted ? 'RESET' : 'START' }</button>
             {/* to display user's guess: Instead, may just want to make the form a lot bigger*/}
-            <h1> You're Typing :  {formText}</h1>
+            {
+                gameIsStarted ? 
+                <h1> 
+                   | {formText} |
+                </h1> :
+                <h1> 
+                    Type As Many Words As You Can
+                </h1>
+            }
         </div>
     )
 
