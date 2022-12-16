@@ -63,6 +63,15 @@ const PageHeader = (props) => {
                 paddingRight: '15px',
                 paddingLeft: '15px'
             }}>  POKEMON </NavLink>
+            <NavLink to="/quickplay" onClick={resetReduxStores} style={{
+                width:'140px',
+                color:'black',
+                textDecoration: 'none',
+                fontSize: 'large',
+                border: 'none',
+                paddingRight: '15px',
+                paddingLeft: '15px'
+            }}>  QUICK PLAY </NavLink>
         </div>
     )
 }

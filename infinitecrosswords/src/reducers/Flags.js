@@ -9,9 +9,12 @@
  // when the player has lost, or started a new game.          ***************Could also hold score****************
  */
 
+ // TODO have an issue where showFirstLetter isn't actually consulted and so it gets reset across apps.
+ // need apps to set their default by consulting the store first. 
+
  // showFirstLetter is ONLY USED here, revealLetters will tell SingleWord what to display
   const flagReducerDefaultState = [{
-    showFirstLetter:false, revealLetters:0, hintsAvailable:3, livesLeft:3, gameOver:false, theme:2
+    showFirstLetter:true, revealLetters:0, hintsAvailable:3, livesLeft:3, theme:2, totalRevealed:0
   }];   
   const numOfThemes = 3;
   // Only as many themes as I have set up will be supported. Themes are:
@@ -43,9 +46,11 @@
           return [{ ...state[0], showFirstLetter: !state[0].showFirstLetter, revealLetters: newRevealLetters}];
         case 'REVEAL_LETTER':
           // Add one more to reveal Letters:
-          return [{ ...state[0], revealLetters: ++state[0].revealLetters}];
+          return [{ ...state[0], revealLetters: ++state[0].revealLetters, totalRevealed: ++state[0].totalRevealed}];
         case 'CHANGE_THEME':
           return [{ ...state[0], theme:((++state[0].theme) % numOfThemes)}]
+        case 'CLEAR_WORDS':
+          return [{...state[0], totalRevealed: 0, revealLetters: 0, hintsAvailable:3, livesLeft:3,}];  
         default:
           return state;
       }

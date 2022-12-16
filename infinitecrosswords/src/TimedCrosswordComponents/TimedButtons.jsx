@@ -2,23 +2,22 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { showFirstLetter } from "../actions/ShowFirstLetter";
 import { revealLetter } from "../actions/RevealLetter";
-// Additional buttons for the crossword game, such as potentially:
-// Most / all of these could be accomplished utilizing the Flags.js reducer
-// 1) always show first letter
-// 2) give a hint -> (maybe pull more info than definition) -> could show up in a modal
-// 3) reveal a letter -> reveals another letter of the word somehow
-const CrosswordButtons = (props) => {
+// Want an "idk button" to lower score and skip a word if hints are already used
+// up. Maybe first idk is free. Also want limited use of hints, should disable
+// them after they are clicked until a new word is fetched.
+
+const TimedButtons = (props) => {
     // console.log('in CrosswordButtons props.flags is:',props.flags );
     
     const [isShowingFirstLetter, setShowingFirstLetter] = useState(true); 
-    const [lettersRevealed, setLettersRevealed] = useState(0); 
+    // const [lettersRevealed, setLettersRevealed] = useState(0); used to track total letters revealed here
     // Maybe have multiple possible states for the hint such as synonyms, other definitions, etc. 
 
     const giveHint = () => {
         // This can be entirely handled here to not overcomplicate,
         // just need to pull current word from state
         // Could also pull x and y if I want the modal over the word... 
-        const currWord = props.words.filter(word => !word.showLetters)[0].word;
+        const currWord = props.currentWord.word; // props.words.filter(word => !word.showLetters)[0].word;
         // console.log('current word in Give hint in CrosswordButtons is:', currWord);
         // Fetch more information such as synonyms, other definitions, parts of speech etc. 
         let synonym = '';
@@ -51,7 +50,7 @@ const CrosswordButtons = (props) => {
     }
 
     const clickedRevealLetter = () => {
-        setLettersRevealed(lettersRevealed + 1);
+        // setLettersRevealed(lettersRevealed + 1);
         props.dispatch(revealLetter());
         // console.log('dispatched to revealLetter', props.flags[0]);
     }
@@ -61,9 +60,9 @@ const CrosswordButtons = (props) => {
             <button onClick={clickedShowFirstLetter} className='showFirstLetterButton'> 
                 {isShowingFirstLetter ? 'Hide First Letters' : 'Show First Letters'} 
             </button>
-            <button onClick={giveHint} disabled={props.words.length === 0}> Give Me A Hint </button>
+            <button onClick={giveHint} disabled={props.words.length === 0}> Get A Hint </button>
             <button onClick={clickedRevealLetter} disabled={props.words.length === 0}> 
-                Reveal A Letter {lettersRevealed ? lettersRevealed + ' Revealed' : ''} 
+                Reveal A Letter {/*lettersRevealed ? lettersRevealed + ' Revealed' : ''*/} 
             </button>
         </div>
     )
@@ -72,4 +71,4 @@ const mapStateToProps = (state, props) => {
     return { flags:state.flags, words:state.words} 
 }
 
-export default connect(mapStateToProps)(CrosswordButtons);
+export default connect(mapStateToProps)(TimedButtons);

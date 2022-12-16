@@ -1,24 +1,24 @@
 // A component meant to combine components used to build and populate the crossword
 // so the GuessInput component, as well as adding functionality for adding words,
 // checking if a word is correct, etc. 
-import GuessInput from "./guessInput";
-import CheckCorrectness from "./CheckCorrectness";
+import CheckCorrectness from "../components/CheckCorrectness";
 import { showLetters } from "../actions/ShowLetters";
-import WordAdder from "./WordAdder";
+import WordAdder from "../components/WordAdder";
 import { connect } from "react-redux";
 import { addWord } from "../actions/AddWord";
-import Definition from "./Definition";
+import Definition from "../components/Definition";
 import { useState } from "react";
-import { Modal } from "@mui/material";
+import TimedGuessInput from "./TimedGuessInput";
 
 const randomWords = require('random-words');
 
-const CrosswordBuilder = (props) => {
+const TimedBuilder = (props) => {
 
-    // For modal
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    // For Wrong guess
+    const [wrong, setWrong] = useState(false);
+    const handleWrong = () => setWrong(true);
+    const handleWrongTime = () => setWrong(false);
+    const wrongX = (window.innerWidth / 2 - 300);
 
     // Stored in CrosswordBuilder state
     const [currentWord, setCurrentWord] = useState();
@@ -45,10 +45,11 @@ const CrosswordBuilder = (props) => {
             return true;
         } else {
             // incorrect guess
-            handleOpen();
+            // TODO may want reduction to score, or maybe the time that is used up is punishment enough.
+            handleWrong();
             setTimeout(() => {
-                handleClose();
-            }, 1500);
+                handleWrongTime();
+            }, 750);
             return false;
         }
     }
@@ -77,25 +78,17 @@ const CrosswordBuilder = (props) => {
 
     return (
         <div>
-            <GuessInput submitWord={submitWord} startGame={startGame}/>
+            <TimedGuessInput submitWord={submitWord} startGame={startGame} score={props.grid[0].score}/>
             <Definition word={currentWord} isStarted={true}/>
-            <Modal 
-                style={{
-                    backgroundColor: 'gold', 
-                    textAlign:'center', 
-                    width: '100vw', 
-                    height: '150px', 
-                    opacity:'100%'
-                }}
-                open={open}
-                onClose={handleClose}
-            >
-                <div className="WrapperForIncorrectModal" style={{
-                }}>
-                    <h1> INCORRECT </h1>
-                    <button onClick={handleClose} style={{border:'none'}}>CONTINUE</button>
-                </div>
-            </Modal> 
+            <div className="WrongText">
+                {wrong && <h1 style={{
+                    color: 'red', 
+                    fontSize: '150px', 
+                    position: 'absolute', 
+                    top: '-80px',
+                    left: wrongX
+                }}> WRONG </h1>}
+            </div>
         </div>
     )
 }
@@ -108,4 +101,4 @@ const mapStateToProps = (state, props) => {
     return { prevWords , prevWord, doAddWord:state.flags[0].addWord, grid:state.grid}; 
   }
 
-export default connect(mapStateToProps)(CrosswordBuilder);
+export default connect(mapStateToProps)(TimedBuilder);
